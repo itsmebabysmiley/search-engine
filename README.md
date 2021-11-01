@@ -1,7 +1,5 @@
 # Search engine prototype
 
-## ITCS414 Information Storage and Retrieval
-
 ### Contributes
 
 1. Pranungfun Prapaenee 6288034
