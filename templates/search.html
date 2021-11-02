@@ -17,7 +17,31 @@
         </div>
         <!-- loop results in here -->
         <div class="container">
-
+            {% for doc in res %}
+                <hr/>
+                <div class="container">
+                    <p class="h2 text-center"> {{doc['name']}} </p>
+                    <p>Kengos parents were well-off fashion designers but have passed away leaving him an inheritance. Soon the adoptive daughter of his uncle shows up on his doorstep in a similar predicament and with nowhere to go. Kengo takes Miya in and allows her to live in his far too lonely and large mansion with no strings attached, but she insists on working for her stay by becoming his maid, but refuses to be paid for her work. Aside from cooking and cleaning, she has some...other ideas on how a maid should be servicing her master too. Thus begins the story of these two young lovers unconventional but sweet romance.</p>
+                    <p>Related name:
+                        {% for i in doc['related name'] %}
+                        <span>{{i}} </span>
+                        {% endfor %}
+                        
+                    </p>
+                    <p>Characters: 
+                        {% for c in doc['characters'] %}
+                        <span>{{c}} </span>
+                        {% endfor %}
+                    </p>
+                    <p>Genres: {% for g in doc['genres'] %}
+                        <span>{{g}} </span>
+                        {% endfor %}
+                    </p>
+                    <p>Author: {{doc['author']}}</p>
+                    <p>Publisher: {{doc['publisher']}}</p>
+                </div>
+            {% endfor %}
+            
         </div>
     </div>
 </body>
