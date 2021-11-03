@@ -38,16 +38,3 @@ try:
 except Exception as e:
     print("\nERROR:", e)
     
-'''
-debug ERROR Invalid control character at: xx
-Try to find control characters(eg. '\t','\r','\0', etc.) and remove it in temp.json. Or you can write another function
-that to remove control characters.
-
-import json
-new_file = open("temp.json","x")
-with open(file) as json_file:
-    json_docs = ndjson.load(json_file,strict=False)
-    new_file.write(json.dumps(json_docs))
-
-new_file.close()
-'''
