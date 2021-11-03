@@ -21,4 +21,11 @@ This prototype contians around 100 data sample that we manually collect from [an
 python elasticsearch_loader.py --file magna_json_normalize.json --index magna_index --type magna
 ```
 
+
+## How to use normalize_data.py?
+
+```bash
+python normalize_data.py -i <input_file.json> -o <output_file.json>
+```
+
 ### THIS WORK IS UNDER MAHIDOL LINCESE
