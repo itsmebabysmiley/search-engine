@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request
-from elasticsearch import Elasticsearch
 import json
 import math
 
-es = Elasticsearch()
 
 app = Flask(__name__)
 
@@ -22,37 +20,29 @@ def search():
         page_no = int(request.args.get('page'))
     else:
         page_no = 1
-        
-    body = {
-        'size' : page_size,
-        'from' : page_size * (page_no-1),
-         'query': {
-            'multi_match': {
-                'query': keyword,
-                'fields': ['name','short_story','characters','genres']
-            }
-        }
-    }
+    
+    with open('sample.json', 'r') as myfile:
+        data=myfile.read()   
 
-    res = es.search(index='magna_index', doc_type='', body=body)
+    res = json.loads(data)
     result = []
-    for r in res['hits']['hits']:
+    for r in res:
         
         body ={
-            'name' :        r['_source']['name'],
-            'related name': r['_source']['related name'],
-            'short_story':  r['_source']['short_story'],
-            'characters':   r['_source']['characters'],
-            'genres' :     [c.capitalize() for c in r['_source']['genres']],
-            'author' :      r['_source']['author'],
-            'publisher' :   r['_source']['Publisher']
+            'name' :        r['name'],
+            'related name': r['related name'],
+            'short_story':  r['short_story'],
+            'characters':   r['characters'],
+            'genres' :     [c.capitalize() for c in r['genres']],
+            'author' :      r['author'],
+            'publisher' :   r['Publisher']
         }
         result.append(body)
     
     # json_formatted_str = json.dumps(result, indent=2)
     # print(json_formatted_str)
-    page_total = math.ceil(res['hits']['total']['value']/page_size)
-    return render_template('search.html', res=result, page_total = page_total, page_no = page_no, keyword = keyword )
+    page_total = math.ceil(len(res)/page_size)
+    return render_template('search.html', res=result[page_no::page_total], page_total = page_total, page_no = page_no, keyword = keyword )
     
     
     
