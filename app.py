@@ -34,7 +34,7 @@ def search():
         }
     }
 
-    res = es.search(index='magna_index', doc_type='', body=body)
+    res = es.search(index='manga_index', doc_type='', body=body)
     result = []
     for r in res['hits']['hits']:
         
