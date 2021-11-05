@@ -7,7 +7,6 @@ es = Elasticsearch()
 
 app = Flask(__name__)
 
-
 @app.route("/")
 def hello_world():
     return render_template('homepage.html')

@@ -18,7 +18,7 @@ This prototype contians around 100 data sample that we manually collect from [an
 ## How to use elasticsearch_loader.py?
 
 ```bash
-python elasticsearch_loader.py --file magna_json_normalize.json --index magna_index --type magna
+python elasticsearch_loader.py --file <file.json> --index <index_name> --type <type>
 ```
 
 
