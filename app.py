@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from elasticsearch import Elasticsearch
 import json
 import math
+import random
 
 es = Elasticsearch()
 
@@ -15,47 +16,77 @@ def hello_world():
 
 @app.route('/search', methods=['GET'])
 def search():
-    page_size = 10
+    page_size = 15
     keyword = request.args.get('keyword')
-    
+
     if request.args.get('page'):
         page_no = int(request.args.get('page'))
     else:
         page_no = 1
-        
+
     body = {
-        'size' : page_size,
-        'from' : page_size * (page_no-1),
-         'query': {
+        'size': page_size,
+        'from': page_size * (page_no-1),
+        'query': {
             'multi_match': {
                 'query': keyword,
-                'fields': ['name','short_story','characters','genres']
+                'fields': ['name', 'short_story', 'characters', 'genres']
             }
         }
     }
 
     res = es.search(index='manga_index', doc_type='', body=body)
+    
     result = []
     for r in res['hits']['hits']:
+        img_list = [r['_source']['img_list'][i] for i in random.sample(range(0, 10), 3)]
         
-        body ={
-            'name' :        r['_source']['name'],
+        body = {
+            'id':          r['_id'],
+            'name':        r['_source']['name'],
             'related name': r['_source']['related name'],
-            'short_story':  r['_source']['short_story'],
+            'short_short_story':  r['_source']['short_story'][0:100]+"...",
+            'short_story': r['_source']['short_story'],
             'characters':   r['_source']['characters'],
-            'genres' :     [c.capitalize() for c in r['_source']['genres']],
-            'author' :      r['_source']['author'],
-            'publisher' :   r['_source']['Publisher']
+            'genres':      [c.capitalize() for c in r['_source']['genres']],
+            'author':      r['_source']['author'],
+            'publisher':   r['_source']['publisher'],
+            'img':         img_list
         }
         result.append(body)
-    
-    # json_formatted_str = json.dumps(result, indent=2)
-    # print(json_formatted_str)
+
     page_total = math.ceil(res['hits']['total']['value']/page_size)
-    return render_template('search.html', res=result, page_total = page_total, page_no = page_no, keyword = keyword )
+    return render_template('search.html', res=result, page_total=page_total, page_no=page_no, keyword=keyword)
+
+
+@app.route('/manga/<id>')
+def manga_page(id):
+    arg = id.split('=')
+    id = arg[1]
+    body = {
+        "query": {
+            "match": {
+                "_id": id
+                }
+        }
+    }
+    res = es.search(index='manga_index', doc_type='', body=body)
+    r = res['hits']['hits'][0]['_source']['related name']
+    print(r[0] == '')
+    result = {
+        'name':         res['hits']['hits'][0]['_source']['name'],
+        'related name': '' if res['hits']['hits'][0]['_source']['related name'][0] == '' else res['hits']['hits'][0]['_source']['related name'],
+        'short_story':  res['hits']['hits'][0]['_source']['short_story'],
+        'characters':   res['hits']['hits'][0]['_source']['characters'],
+        'genres':       ','.join(c.capitalize() for c in res['hits']['hits'][0]['_source']['genres']) ,
+        'author':       res['hits']['hits'][0]['_source']['author'],
+        'publisher':    res['hits']['hits'][0]['_source']['publisher']
+    }
+    img = res['hits']['hits'][0]['_source']['img_list'][0]
     
-    
-    
+    return render_template('manga_page.html',res = result, img = img)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
+    # > $env:FLASK_ENV = "development"
