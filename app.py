@@ -1,16 +1,14 @@
 from flask import Flask, render_template, request
-from elasticsearch import Elasticsearch
 import json
 import math
 import random
 
-es = Elasticsearch()
 
 app = Flask(__name__)
 
 
 @app.route("/")
-def hello_world():
+def index():
     return render_template('homepage.html')
 
 
@@ -24,69 +22,62 @@ def search():
     else:
         page_no = 1
 
-    body = {
-        'size': page_size,
-        'from': page_size * (page_no-1),
-        'query': {
-            'multi_match': {
-                'query': keyword,
-                'fields': ['name', 'short_story', 'characters', 'genres']
-            }
-        }
-    }
-
-    res = es.search(index='manga_index', doc_type='', body=body)
+    with open('sample_with_id.json', 'r') as myfile:
+        data=myfile.read() 
     
+    res = json.loads(data)
     result = []
-    for r in res['hits']['hits']:
-        img_list = [r['_source']['img_list'][i] for i in random.sample(range(0, 10), 3)]
+    for r in res:
+        # print(r['id'])
+        img_list = [r['img_list'][i] for i in random.sample(range(0, 10), 3)]
         
         body = {
-            'id':          r['_id'],
-            'name':        r['_source']['name'],
-            'related name': r['_source']['related name'],
-            'short_short_story':  r['_source']['short_story'][0:100]+"...",
-            'short_story': r['_source']['short_story'],
-            'characters':   r['_source']['characters'],
-            'genres':      [c.capitalize() for c in r['_source']['genres']],
-            'author':      r['_source']['author'],
-            'publisher':   r['_source']['publisher'],
+            'id':          r['id'],
+            'name':        r['name'],
+            'related name': r['related name'],
+            'short_short_story':  str(r['short_story'][0:100])+"...",
+            'short_story': r['short_story'],
+            'characters':   r['characters'],
+            'genres':      [c.capitalize() for c in r['genres']],
+            'author':      r['author'],
+            'publisher':   r['publisher'],
             'img':         img_list
         }
         result.append(body)
 
-    page_total = math.ceil(res['hits']['total']['value']/page_size)
-    return render_template('search.html', res=result, page_total=page_total, page_no=page_no, keyword=keyword)
+    page_total = math.ceil(len(res)/page_size)
+    return render_template('search.html', res=result[page_no-1::page_total], page_total = page_total, page_no = page_no, keyword = keyword )
 
 
 @app.route('/manga/<id>')
 def manga_page(id):
     arg = id.split('=')
     id = arg[1]
-    body = {
-        "query": {
-            "match": {
-                "_id": id
-                }
-        }
-    }
-    res = es.search(index='manga_index', doc_type='', body=body)
-    r = res['hits']['hits'][0]['_source']['related name']
-    print(r[0] == '')
-    result = {
-        'name':         res['hits']['hits'][0]['_source']['name'],
-        'related name': '' if res['hits']['hits'][0]['_source']['related name'][0] == '' else res['hits']['hits'][0]['_source']['related name'],
-        'short_story':  res['hits']['hits'][0]['_source']['short_story'],
-        'characters':   res['hits']['hits'][0]['_source']['characters'],
-        'genres':       ','.join(c.capitalize() for c in res['hits']['hits'][0]['_source']['genres']) ,
-        'author':       res['hits']['hits'][0]['_source']['author'],
-        'publisher':    res['hits']['hits'][0]['_source']['publisher']
-    }
-    img = res['hits']['hits'][0]['_source']['img_list'][0]
+    print(id)
+    with open('sample_with_id.json', 'r') as myfile:
+        data=myfile.read() 
+    res = json.loads(data)
     
+    index = 0
+    for v in res:
+        if v['id'] == id:
+            break
+        index += 1
+    print(index)
+    
+    result = {
+        'name':         res[index]['name'],
+        'related name': '' if res[index]['related name'][0] == '' else ','.join(res[index]['related name']),
+        'short_story':  res[index]['short_story'],
+        'characters':   res[index]['characters'],
+        'genres':       ','.join(c.capitalize() for c in res[index]['genres']) ,
+        'author':       res[index]['author'],
+        'publisher':    res[index]['publisher']
+    }
+    img = res[index]['img_list'][0]
     return render_template('manga_page.html',res = result, img = img)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # > $env:FLASK_ENV = "development"
+    #hi nice to see u ><
+    pass
