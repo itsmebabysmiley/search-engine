@@ -29,8 +29,8 @@ python normalize_data.py -i <input_file.json> -o <output_file.json>
 ```
 
 ## How to run flask?
+
 ```bash
-> $env:FLASK_ENV = "development"
 > flask run
 ```
 
