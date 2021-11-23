@@ -52,7 +52,10 @@
         .btn-outline-success{
             color:black ;
         }
-
+        .card-title{
+            color: #F43B86;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -66,7 +69,7 @@
             </form>
           </div>
         </div>
-      </nav>
+    </nav>
     <!-- Navbar -->
 
     <div class="container">
@@ -101,9 +104,9 @@
                         </div>
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title">{{res[0]['name']}}</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Author: {{res[0]['author']}} </h6>
-                      <h6 class="card-subtitle mb-2 text-muted">Publisher: {{res[0]['publisher']}}</h6>
+                      <h2 class="card-title" style="font-weight: bold; color: #FFE459;">{{res[0]['name']}}</h5>
+                      <h6 class="card-subtitle mb-2" style="color: #F43B86;">Author: {{res[0]['author']}} </h6>
+                      <h6 class="card-subtitle mb-2" style="color: #F43B86;">Publisher: {{res[0]['publisher']}}</h6>
                       <p class="card-text">{{res[0]['short_story']}}</p>
 
                       <a href="/manga/id={{res[0]['id']}}" class="card-link">More info.</a>
