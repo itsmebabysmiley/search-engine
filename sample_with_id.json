@@ -138,9 +138,8 @@
   {
     "name": "Bungo Stray dogs",
     "related name": ["Bungo Sutorei Doggusu"],
-    "short_story": [
-      "he story focuses on a young adult named Atsushi Nakajima. After being kicked out of his orphanage, Atsushi accidentally stops the suicide of a detective named Osamu Dazai believing he was drowning in the river. During his interactions with Dazai, Atsushi learns he is gifted with a supernatural ability capable of transforming him into a berserker white tiger in the moonlight; this made the orphanage torture him and kick him out in the past. Dazai recruits him into the Agency and there he meets many other ability users as they tackle various cases and events taking place within the city of Yokohama, a place teeming with individuals with Supernatural Abilities. Atsushi becomes the target of the Port Mafia members, most notably Dazai's former student, Ryunosuke Akutagawa, as there is a bounty on his head on the black market."
-    ],
+    "short_story": 
+      "he story focuses on a young adult named Atsushi Nakajima. After being kicked out of his orphanage, Atsushi accidentally stops the suicide of a detective named Osamu Dazai believing he was drowning in the river. During his interactions with Dazai, Atsushi learns he is gifted with a supernatural ability capable of transforming him into a berserker white tiger in the moonlight; this made the orphanage torture him and kick him out in the past. Dazai recruits him into the Agency and there he meets many other ability users as they tackle various cases and events taking place within the city of Yokohama, a place teeming with individuals with Supernatural Abilities. Atsushi becomes the target of the Port Mafia members, most notably Dazai's former student, Ryunosuke Akutagawa, as there is a bounty on his head on the black market.",
     "characters": ["Osamu Dazai", "Atsushi Nakajima", "Chuuya Nakahara", "Ryunosuke Akutagawa"],
     "genres": ["Action", "mystery", "supernatural"],
     "author": "Kafka Asagiri",
