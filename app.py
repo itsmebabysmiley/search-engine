@@ -39,7 +39,7 @@ def search():
     result = []
     if len(res['hits']['hits']) != 0:
         for r in res['hits']['hits']:
-            img_list = [r['_source']['img_list'][i] for i in random.sample(range(0, 10), 5)]
+            img_list = [r['_source']['img_list'][i] for i in random.sample(range(0, 3), 3)]
             
             body = {
                 'id':          r['_id'],
