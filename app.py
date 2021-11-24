@@ -51,7 +51,8 @@ def search():
                 'genres':      [c.capitalize() for c in r['_source']['genres']],
                 'author':      r['_source']['author'],
                 'publisher':   r['_source']['publisher'],
-                'img':         img_list
+                'img':         img_list,
+                'score':       r['_score'],
             }
             result.append(body)
 
@@ -71,7 +72,7 @@ def manga_page(id):
         }
     }
     res = es.search(index='manga_index', doc_type='', body=body)
-    print(res)
+    # print(res)
     result = {
         'name':         res['hits']['hits'][0]['_source']['name'],
         'related name': '' if res['hits']['hits'][0]['_source']['related name'][0] == '' else res['hits']['hits'][0]['_source']['related name'],
