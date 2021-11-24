@@ -26,24 +26,32 @@ def search():
         data=myfile.read() 
     
     res = json.loads(data)
+    '''
+    not found here:
+    True --> found
+    False --> not found
+    '''
+    hits  = False
+    
     result = []
-    for r in res:
-        # print(r['id'])
-        img_list = [r['img_list'][i] for i in random.sample(range(0, 10), 3)]
-        
-        body = {
-            'id':          r['id'],
-            'name':        r['name'],
-            'related name': r['related name'],
-            'short_short_story':  str(r['short_story'][0:100])+"...",
-            'short_story': r['short_story'],
-            'characters':   r['characters'],
-            'genres':      [c.capitalize() for c in r['genres']],
-            'author':      r['author'],
-            'publisher':   r['publisher'],
-            'img':         img_list
-        }
-        result.append(body)
+    if hits:
+        for r in res:
+            # print(r['id'])
+            img_list = [r['img_list'][i] for i in random.sample(range(0, 10), 3)]
+            
+            body = {
+                'id':          r['id'],
+                'name':        r['name'],
+                'related name': r['related name'],
+                'short_short_story':  str(r['short_story'][0:100])+"...",
+                'short_story': r['short_story'],
+                'characters':   r['characters'],
+                'genres':      [c.capitalize() for c in r['genres']],
+                'author':      r['author'],
+                'publisher':   r['publisher'],
+                'img':         img_list
+            }
+            result.append(body)
 
     page_total = math.ceil(len(res)/page_size)
     return render_template('search.html', res=result[page_no-1::page_total], page_total = page_total, page_no = page_no, keyword = keyword )

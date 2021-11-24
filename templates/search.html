@@ -94,46 +94,51 @@
     <div class="container" style="padding-top: 20px; padding-bottom: 20px;">
         <!-- main contents -->
         <div class="d-flex justify-content-center">
-            <!-- loop results in here -->
-            <div class="container">
-                {% for doc in res %}
-                    <div class="container">
-                        <a class="h3"  href="/manga/id={{doc['id']}}" > {{doc['name']}}</a>
-                        <p>
-                            {{doc['short_short_story']}}
-                        </p>
-                    </div>
-                {% endfor %}
-            </div>
-            <!-- helpful page -->
-            {% if page_no == 1 %}
-            <div class="container">
-                <div class="card" style="border: 0px;">
-                    <div class="container d-flex justify-content-center">
-                        <div class="d-flex bd-highlight">
-                            <div class="p-2 flex-grow-1 bd-highlight">
-                                <img src="{{res[0]['img'][0]}}" class="card-img-top" alt="..." style="width: fit-content;">
-                            </div>
-                            <div class="p-2 bd-highlight">
-                                <img src="{{res[0]['img'][1]}}" class="card-img-top" alt="..." style="width: fit-content;">
-                            </div>
-                            <div class="p-2 bd-highlight">
-                                <img src="{{res[0]['img'][2]}}" class="card-img-top" alt="..." style="width: fit-content;">
+            {% if res %}
+                <!-- loop results in here -->
+                <div class="container">
+                    {% for doc in res %}
+                        <div class="container">
+                            <a class="h3"  href="/manga/id={{doc['id']}}" > {{doc['name']}}</a>
+                            <p>
+                                {{doc['short_short_story']}}
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- helpful page -->
+                {% if page_no == 1 %}
+                <div class="container">
+                    <div class="card">
+                        <div class="container d-flex justify-content-center">
+                            <div class="d-flex bd-highlight">
+                                <div class="p-2 flex-grow-1 bd-highlight">
+                                    <img src="{{res[0]['img'][0]}}" class="card-img-top" alt="..." style="width: fit-content;">
+                                </div>
+                                <div class="p-2 bd-highlight">
+                                    <img src="{{res[0]['img'][1]}}" class="card-img-top" alt="..." style="width: fit-content;">
+                                </div>
+                                <div class="p-2 bd-highlight">
+                                    <img src="{{res[0]['img'][2]}}" class="card-img-top" alt="..." style="width: fit-content;">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                      <h2 class="card-title" style="font-weight: bold; color: #FFE459;">{{res[0]['name']}}</h5>
-                      <h6 class="card-subtitle mb-2" style="color: #F43B86;">Author: {{res[0]['author']}} </h6>
-                      <h6 class="card-subtitle mb-2" style="color: #F43B86;">Publisher: {{res[0]['publisher']}}</h6>
-                      <p class="card-text">{{res[0]['short_story']}}</p>
+                        <div class="card-body">
+                        <h5 class="card-title">{{res[0]['name']}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Author: {{res[0]['author']}} </h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Publisher: {{res[0]['publisher']}}</h6>
+                        <p class="card-text">{{res[0]['short_story']}}</p>
 
-                      <a href="/manga/id={{res[0]['id']}}" class="card-link">More info.</a>
+                        <a href="/manga/id={{res[0]['id']}}" class="card-link">More info.</a>
+                        </div>
                     </div>
-                  </div>
-            </div>
+                </div>
+                {% endif %}
+                <!-- helpful page -->
             {% endif %}
-             <!-- helpful page -->
+            {% if not res %}
+                <p> not found</p>
+            {% endif %}
         
         </div>
         <!-- main contents -->
