@@ -39,7 +39,8 @@ def search():
     result = []
     if len(res['hits']['hits']) != 0:
         for r in res['hits']['hits']:
-            img_list = [r['_source']['img_list'][i] for i in random.sample(range(0, 3), 3)]
+            size = len(r['_source']['img_list'])
+            img_list = [r['_source']['img_list'][i] for i in random.sample(range(0, size), 3)]
             
             body = {
                 'id':          r['_id'],
@@ -78,12 +79,13 @@ def manga_page(id):
         'related name': '' if res['hits']['hits'][0]['_source']['related name'][0] == '' else res['hits']['hits'][0]['_source']['related name'],
         'short_story':  res['hits']['hits'][0]['_source']['short_story'],
         'characters':   res['hits']['hits'][0]['_source']['characters'],
-        'genres':       ','.join(c.capitalize() for c in res['hits']['hits'][0]['_source']['genres']) ,
+        'genres':       ', '.join(c.capitalize() for c in res['hits']['hits'][0]['_source']['genres']) ,
         'author':       res['hits']['hits'][0]['_source']['author'],
         'publisher':    res['hits']['hits'][0]['_source']['publisher']
     }
-    img = res['hits']['hits'][0]['_source']['img_list'][0]
-
+    size = len(res['hits']['hits'][0]['_source']['img_list'])
+    rand = random.sample(range(0, size), 1)[0]
+    img = res['hits']['hits'][0]['_source']['img_list'][rand]
     return render_template('manga_page.html',res = result, img = img)
 
 
