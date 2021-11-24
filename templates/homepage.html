@@ -84,13 +84,14 @@
         <!-- search box -->
         <div class="contianer mt-5">
             <img src = "/static/images/MangaS-Logo.png" class="mx-auto d-block" style="width: 700px;">
-
+          <div class="contianer mx-auto" style="width: 500px;">
             <form class="align-items-center justify-content-center" method="GET" action="{{url_for('search')}}">
                 <input type="text" class="form-control" id="search-box" name="keyword" style="border-radius: 30px; size: 30px;" placeholder="Search your manga by keyword">
                 <div class="container d-flex align-items-center justify-content-center">
                     <button type="submit" class="btn btn-primary mt-3">Search</button>
                 </div>
             </form>
+          </div>
         </div>
         <!-- end search box -->
     </div>
