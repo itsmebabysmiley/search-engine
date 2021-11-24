@@ -36,24 +36,24 @@ def search():
     }
 
     res = es.search(index='manga_index', doc_type='', body=body)
-    
     result = []
-    for r in res['hits']['hits']:
-        img_list = [r['_source']['img_list'][i] for i in random.sample(range(0, 10), 3)]
-        
-        body = {
-            'id':          r['_id'],
-            'name':        r['_source']['name'],
-            'related name': r['_source']['related name'],
-            'short_short_story':  r['_source']['short_story'][0:100]+"...",
-            'short_story': r['_source']['short_story'],
-            'characters':   r['_source']['characters'],
-            'genres':      [c.capitalize() for c in r['_source']['genres']],
-            'author':      r['_source']['author'],
-            'publisher':   r['_source']['publisher'],
-            'img':         img_list
-        }
-        result.append(body)
+    if len(res['hits']['hits']) != 0:
+        for r in res['hits']['hits']:
+            img_list = [r['_source']['img_list'][i] for i in random.sample(range(0, 10), 3)]
+            
+            body = {
+                'id':          r['_id'],
+                'name':        r['_source']['name'],
+                'related name': r['_source']['related name'],
+                'short_short_story':  r['_source']['short_story'][0:100]+"...",
+                'short_story': r['_source']['short_story'],
+                'characters':   r['_source']['characters'],
+                'genres':      [c.capitalize() for c in r['_source']['genres']],
+                'author':      r['_source']['author'],
+                'publisher':   r['_source']['publisher'],
+                'img':         img_list
+            }
+            result.append(body)
 
     page_total = math.ceil(res['hits']['total']['value']/page_size)
     return render_template('search.html', res=result, page_total=page_total, page_no=page_no, keyword=keyword)
@@ -72,7 +72,6 @@ def manga_page(id):
     }
     res = es.search(index='manga_index', doc_type='', body=body)
     r = res['hits']['hits'][0]['_source']['related name']
-    print(r[0] == '')
     result = {
         'name':         res['hits']['hits'][0]['_source']['name'],
         'related name': '' if res['hits']['hits'][0]['_source']['related name'][0] == '' else res['hits']['hits'][0]['_source']['related name'],
@@ -83,7 +82,7 @@ def manga_page(id):
         'publisher':    res['hits']['hits'][0]['_source']['publisher']
     }
     img = res['hits']['hits'][0]['_source']['img_list'][0]
-    
+
     return render_template('manga_page.html',res = result, img = img)
 
 
