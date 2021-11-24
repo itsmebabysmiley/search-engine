@@ -39,7 +39,7 @@ def search():
     result = []
     if len(res['hits']['hits']) != 0:
         for r in res['hits']['hits']:
-            img_list = [r['_source']['img_list'][i] for i in random.sample(range(0, 10), 3)]
+            img_list = [r['_source']['img_list'][i] for i in random.sample(range(0, 10), 5)]
             
             body = {
                 'id':          r['_id'],
@@ -71,7 +71,7 @@ def manga_page(id):
         }
     }
     res = es.search(index='manga_index', doc_type='', body=body)
-    r = res['hits']['hits'][0]['_source']['related name']
+    print(res)
     result = {
         'name':         res['hits']['hits'][0]['_source']['name'],
         'related name': '' if res['hits']['hits'][0]['_source']['related name'][0] == '' else res['hits']['hits'][0]['_source']['related name'],

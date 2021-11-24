@@ -94,7 +94,15 @@
               {% endfor %}
             </ul>
             <h6 class="card-subtitle mb-2" style="color: #FFE459;">Genres: {{res['genres']}}</h6>
-            <h6 class="card-subtitle mb-2" style="color: #FFE459;">Related name: {{res['related name']}}</h6>
+            <h6 class="card-subtitle mb-2" style="color: #FFE459;">Related name: 
+              
+              <ul style="color:#FFFFFF">
+                {% for doc in res['related name'] %} 
+                <li>{{doc}}</li> 
+                {% endfor %}
+              </ul>
+              
+            </h6>
           </div>
         </div>
     </div>

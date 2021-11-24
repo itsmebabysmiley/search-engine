@@ -75,6 +75,7 @@
         .round {
         border-radius: 20%;
         }
+
     </style>
 </head>
 <body style="margin-bottom: 0px;">
@@ -108,20 +109,23 @@
                 </div>
                 <!-- helpful page -->
                 {% if page_no == 1 %}
-                <div class="container">
-                    <div class="card">
-                        <div class="container d-flex justify-content-center">
-                            <div class="d-flex bd-highlight">
+                <div class="container" style="background-color: black;">
+                    <div class="card" >
+                        <div class="container d-flex flex-grow-1 justify-content-center" style="background-color: black;">
+                            
+                            <div class="d-flex flex-wrap bd-highlight" style="background-color: black;" >
                                 <div class="p-2 flex-grow-1 bd-highlight">
-                                    <img src="{{res[0]['img'][0]}}" class="card-img-top" alt="..." style="width: fit-content;">
+                                    <img src="{{res[0]['img'][0]}}" class="card-img-top" alt="..." style="height: 18rem;">
                                 </div>
                                 <div class="p-2 bd-highlight">
-                                    <img src="{{res[0]['img'][1]}}" class="card-img-top" alt="..." style="width: fit-content;">
+                                    <img src="{{res[0]['img'][1]}}" class="card-img-top" alt="..." style="height: 15rem;">
                                 </div>
                                 <div class="p-2 bd-highlight">
-                                    <img src="{{res[0]['img'][2]}}" class="card-img-top" alt="..." style="width: fit-content;">
+                                    <img src="{{res[0]['img'][2]}}" class="card-img-top" alt="..." style="height: 10rem;">
                                 </div>
                             </div>
+                            
+                            
                         </div>
                         <div class="card-body">
                         <h5 class="card-title">{{res[0]['name']}}</h5>
@@ -145,29 +149,39 @@
         <!-- navigation -->
     </div>
     <!-- navigation -->
+    {% if res|length > 10 %}
     <nav aria-label="Page navigation" style="margin-bottom: 0%;">
-        <ul class="pagination justify-content-center" style="background-color: #F43B86;" >
-            <a href="?keyword={{ keyword }}&page={{ page_no-1 }}" class="previous round" style="padding-top: 5px;">&#8249;</a>
-            <!-- {% if page_no != 1 %}
+        <ul class="pagination justify-content-center" style="background-color: #F43B86;margin-bottom: 0%;" >
+            <a href="?keyword={{ keyword }}&page={{ page_no-1 }}" class="previous round" style="padding-top: 5px;" >&#8249;</a>
+            {% if page_no != 1 %}
+            
             <li class="page-item">
-                <a class="page-link" href="?keyword={{ keyword }}&page={{ page_no-1 }}">Previous</a>
-              </li>
-            <li class="page-item"><a class="page-link" href="?keyword={{ keyword }}&page={{ page_no-1 }}">{{ page_no-1 }}</a></li> 
-            {% endif %} -->
-
-            {% if page_total!=1 %}
-            <li class="page-item active"><a class="page-link" style="background-color: #F43B86; border: #F43B86;" href="#">{{ page_no }}</a></li>
+                <a class="page-link" style="background-color: #F43B86; border: #F43B86;" href="?keyword={{ keyword }}&page={{ page_no-1 }}">Previous</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" style="background-color: #F43B86; border: #F43B86;" href="?keyword={{ keyword }}&page={{ page_no-1 }}">{{ page_no-1 }}</a>
+            </li> 
             {% endif %}
 
-            <!-- {% if page_no <page_total %}
-            <li class="page-item"><a class="page-link" href="?keyword={{ keyword }}&page={{ page_no+1 }}">{{ page_no+1 }}</a></li>
-            <li class="page-item">
-                <a class="page-link" hrf="?keyword={{ keyword }}&page={{ page_no+1 }}">Next</a>
+            {% if page_total!=1 %}
+            <li class="page-item active">
+                <a class="page-link" style="background-color: #F43B86; border: #F43B86;" href="#">{{ page_no }}</a>
             </li>
-            {% endif %} -->
+            {% endif %}
 
+            {% if page_no < page_total %}
+            <li class="page-item">
+                <a class="page-link" style="background-color: #F43B86; border: #F43B86;" href="?keyword={{ keyword }}&page={{ page_no+1 }}">{{ page_no+1 }}</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" style="background-color: #F43B86; border: #F43B86;" href="?keyword={{ keyword }}&page={{ page_no+1 }}">Next</a>
+            </li>
             <a href="?keyword={{ keyword }}&page={{ page_no+1 }}" class="next round" style="padding-top: 5px;">&#8250;</a>
+            {% endif %}
+
+            
         </ul>
     </nav>
+    {% endif %}
 </body>
 </html>
