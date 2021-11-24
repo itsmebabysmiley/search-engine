@@ -30,7 +30,15 @@
             background-color: black;
         }
         a:hover{
+            
             color: #FFE459;
+            
+        }
+        .anim:hover{
+            color: #F43B86;
+            text-decoration:underline;
+            transform: scale(1.5);
+            transition: all .2s ease-in-out;
         }
         .nav-link {
             color: #FFE459;
@@ -100,10 +108,11 @@
                 <div class="container">
                     {% for doc in res %}
                         <div class="container">
-                            <a class="h3"  href="/manga/id={{doc['id']}}" > {{doc['name']}}</a>
-                            <p>
+                            <a class="h3 anim"  href="/manga/id={{doc['id']}}" > {{doc['name']}}</a>
+                            <p style="margin-bottom: 0%;">
                                 {{doc['short_short_story']}}
                             </p>
+                            <p class="disabled" style="color:#f83d88a9; font-size:13px;">score: {{doc['score']}}</p>
                         </div>
                     {% endfor %}
                 </div>
@@ -129,8 +138,8 @@
                         </div>
                         <div class="card-body">
                         <h5 class="card-title">{{res[0]['name']}}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Author: {{res[0]['author']}} </h6>
-                        <h6 class="card-subtitle mb-2 text-muted">Publisher: {{res[0]['publisher']}}</h6>
+                        <h6 class="card-subtitle mb-2" style="color: #FFE459;">Author: {{res[0]['author']}} </h6>
+                        <h6 class="card-subtitle mb-2" style="color: #FFE459;">Publisher: {{res[0]['publisher']}}</h6>
                         <p class="card-text">{{res[0]['short_story']}}</p>
 
                         <a href="/manga/id={{res[0]['id']}}" class="card-link">More info.</a>
@@ -156,25 +165,25 @@
             {% if page_no != 1 %}
             
             <li class="page-item">
-                <a class="page-link" style="background-color: #F43B86; border: #F43B86;" href="?keyword={{ keyword }}&page={{ page_no-1 }}">Previous</a>
+                <a class="page-link" style="background-color: #F43B86; border: #F43B86; color:#FFE459" href="?keyword={{ keyword }}&page={{ page_no-1 }}">Previous</a>
             </li>
             <li class="page-item">
-                <a class="page-link" style="background-color: #F43B86; border: #F43B86;" href="?keyword={{ keyword }}&page={{ page_no-1 }}">{{ page_no-1 }}</a>
+                <a class="page-link" style="background-color: #F43B86; border: #F43B86; color:#FFE459" href="?keyword={{ keyword }}&page={{ page_no-1 }}">{{ page_no-1 }}</a>
             </li> 
             {% endif %}
 
             {% if page_total!=1 %}
             <li class="page-item active">
-                <a class="page-link" style="background-color: #F43B86; border: #F43B86;" href="#">{{ page_no }}</a>
+                <a class="page-link" style="background-color: #F43B86; border: #F43B86; color:#FFE459" href="#">{{ page_no }}</a>
             </li>
             {% endif %}
 
             {% if page_no < page_total %}
             <li class="page-item">
-                <a class="page-link" style="background-color: #F43B86; border: #F43B86;" href="?keyword={{ keyword }}&page={{ page_no+1 }}">{{ page_no+1 }}</a>
+                <a class="page-link" style="background-color: #F43B86; border: #F43B86; color:#FFE459" href="?keyword={{ keyword }}&page={{ page_no+1 }}">{{ page_no+1 }}</a>
             </li>
             <li class="page-item">
-                <a class="page-link" style="background-color: #F43B86; border: #F43B86;" href="?keyword={{ keyword }}&page={{ page_no+1 }}">Next</a>
+                <a class="page-link" style="background-color: #F43B86; border: #F43B86; color:#FFE459" href="?keyword={{ keyword }}&page={{ page_no+1 }}">Next</a>
             </li>
             <a href="?keyword={{ keyword }}&page={{ page_no+1 }}" class="next round" style="padding-top: 5px;">&#8250;</a>
             {% endif %}
