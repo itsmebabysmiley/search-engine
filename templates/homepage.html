@@ -38,11 +38,12 @@
         .btn {
             border-radius: 30px ;
             background-color: #F43B86;
+            border: none;
         }
         .btn:hover{
             
             background-color: #FFE459;
-            color: black;
+            color:#F43B86;
         }
 
     </style>
@@ -83,8 +84,8 @@
         <!-- search box -->
         <div class="contianer mt-5">
             <img src = "/static/images/MangaS-Logo.png" class="mx-auto d-block" style="width: 700px;">
-            <!-- <img src="https://c.ndtvimg.com/2020-11/2ncu4imo_google-photos-memes_625x300_12_November_20.jpg" alt="h" > -->
-            <form class="mt-3 d-block" method="GET" action="{{url_for('search')}}">
+
+            <form class="align-items-center justify-content-center" method="GET" action="{{url_for('search')}}">
                 <input type="text" class="form-control" id="search-box" name="keyword" style="border-radius: 30px; size: 30px;" placeholder="Search your manga by keyword">
                 <div class="container d-flex align-items-center justify-content-center">
                     <button type="submit" class="btn btn-primary mt-3">Search</button>

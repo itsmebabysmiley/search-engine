@@ -61,7 +61,7 @@
         a {
             text-decoration: none;
             display: inline-block;
-            padding: 8px 16px;
+            /* padding: 8px 16px; */
         }
 
         .previous {
@@ -77,7 +77,7 @@
         }
     </style>
 </head>
-<body>
+<body style="margin-bottom: 0px;">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container-fluid d-flex justify-content-start">
@@ -91,7 +91,7 @@
     </nav>
     <!-- Navbar -->
 
-    <div class="container">
+    <div class="container" style="padding-top: 20px; padding-bottom: 20px;">
         <!-- main contents -->
         <div class="d-flex justify-content-center">
             <!-- loop results in here -->
@@ -140,9 +140,9 @@
         <!-- navigation -->
     </div>
     <!-- navigation -->
-    <nav aria-label="Page navigation" style="margin: 0%;">
+    <nav aria-label="Page navigation" style="margin-bottom: 0%;">
         <ul class="pagination justify-content-center" style="background-color: #F43B86;" >
-            <a href="?keyword={{ keyword }}&page={{ page_no-1 }}" class="previous round">&#8249;</a>
+            <a href="?keyword={{ keyword }}&page={{ page_no-1 }}" class="previous round" style="padding-top: 5px;">&#8249;</a>
             <!-- {% if page_no != 1 %}
             <li class="page-item">
                 <a class="page-link" href="?keyword={{ keyword }}&page={{ page_no-1 }}">Previous</a>
@@ -161,7 +161,7 @@
             </li>
             {% endif %} -->
 
-            <a href="?keyword={{ keyword }}&page={{ page_no+1 }}" class="next round">&#8250;</a>
+            <a href="?keyword={{ keyword }}&page={{ page_no+1 }}" class="next round" style="padding-top: 5px;">&#8250;</a>
         </ul>
     </nav>
 </body>
