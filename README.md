@@ -1,6 +1,6 @@
 # Magna search engine prototype
 
-<img src="./static/images/MangsS-Logo.png" width="50%" />
+<p align="center"> <img src="./static/images/MangaS-Logo.png" width="50%" /> </p>
 
 ## About the project
 
