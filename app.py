@@ -23,14 +23,14 @@ def search():
         page_no = int(request.args.get('page'))
     else:
         page_no = 1
-
     body = {
         'size': page_size,
         'from': page_size * (page_no-1),
         'query': {
             'multi_match': {
                 'query': keyword,
-                'fields': ['name', 'short_story', 'characters', 'genres']
+                'fields': ['name', 'short_story', 'characters', 'genres','publisher','author'],
+                'fuzziness': 1
             }
         }
     }
